@@ -16,24 +16,13 @@ int LDR1_val;
 int LDR2_val;
 int LDR3_val;
 int LDR4_val;
-// stockage de la dernière valeur
-//int lastval1;
-//int lastval2;
-//int lastval3;
-//int lastval4;
-//int LDR1_lastval;
-//int LDR2_lastval;
-//int LDR3_lastval;
-//int LDR4_lastval;
 
 
-// setup crazy
 void setup() {
     Serial.begin(9600);
 }
 
 
-// la boucle
 void loop() {
     LDR1_val = analogRead(LDR1_pin);
     LDR2_val = analogRead(LDR2_pin);
