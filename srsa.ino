@@ -20,10 +20,10 @@ int LDR2_val;
 int LDR3_val;
 int LDR4_val;
 //// stockage de la dernière valeur
-//int lastval1;
-//int lastval2;
-//int lastval3;
-//int lastval4;
+int lastval1;
+int lastval2;
+int lastval3;
+int lastval4;
 //int LDR1_lastval;
 //int LDR2_lastval;
 //int LDR3_lastval;
@@ -69,6 +69,10 @@ void loop() {
     int value1 = abs(LDR1_val - LDR2_val);
     int value2 = abs(LDR2_val - LDR1_val);
 
+    //stock valeurs
+    lastval1 = value1;
+    lastval2 = value2;
+
 
     if ((value1 <= tol) || (value2 <= tol)) {
         check1 = true;
@@ -76,11 +80,11 @@ void loop() {
     else {
         check1 = false;
         // déplacement
-        if (LDR1_val > LDR2_val) {
+        if ((LDR1_val > LDR2_val) && (LDR1_val > lastval1)) {
             Base_pos = --Base_pos;
         }
 
-        if (LDR1_val < LDR2_val) {
+        if ((LDR2_val > LDR1_val) && (LDR2_val > lastval2)) {
             Base_pos = ++Base_pos;
         }
         
@@ -105,16 +109,21 @@ void loop() {
     int value4 = abs(LDR4_val - LDR3_val);
 
 
+    //stock valeurs
+    lastval3 = value3;
+    lastval4 = value4;
+
+
     if ((value3 <= tol) || (value4 <= tol)) {
         check2 = true;
     }
     else {
         check2 = false;
-        if (LDR3_val > LDR4_val) {
+        if ((LDR3_val) > (LDR4_val) && (LDR3_val > lastval3)) {
             Tour_pos = --Tour_pos;
         }
 
-        if (LDR3_val < LDR4_val) {
+        if ((LDR4_val) > (LDR3_val) && (LDR4_val > lastval4)) {
             Tour_pos = ++Tour_pos;
         }
 
