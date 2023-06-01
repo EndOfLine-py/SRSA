@@ -19,11 +19,6 @@ int LDR1_val;
 int LDR2_val;
 int LDR3_val;
 int LDR4_val;
-//// stockage de la dernière valeur
-int lastval1;
-int lastval2;
-int lastval3;
-int lastval4;
 
 
 // checks
@@ -37,10 +32,10 @@ Servo Base;
 Servo Tour;
 const byte Base_pin = 6;
 const byte Tour_pin = 9;
-int Base_pos = 90;
+int Base_pos = 0; // 55 - 
 int Tour_pos = 35;
 
-const int Tol = 10; // Tolérance
+const int tol = 20; // Tolérance
 
 
 // setup crazy
@@ -53,11 +48,16 @@ void setup() {
     Base.write(Base_pos);
     Tour.write(Tour_pos);
 
-    delay(1000);
+    delay(4000);
 }
 
 
-void debug() {
+void debug(int value1, int value2, int value3, int value4) {
+    int LDR1_val = analogRead(LDR1_pin);
+    int LDR2_val = analogRead(LDR2_pin);
+    int LDR3_val = analogRead(LDR3_pin);
+    int LDR4_val = analogRead(LDR4_pin);
+
     Serial.print(LDR1_val);
     Serial.print("  ");
     Serial.print(LDR2_val);
@@ -65,7 +65,7 @@ void debug() {
     Serial.print(LDR3_val);
     Serial.print("  ");
     Serial.print(LDR4_val);
-    Serial.println("\n=======\n");
+    Serial.print("\n===========\n");
 
     Serial.print(value1);
     Serial.print("  ");
@@ -74,17 +74,17 @@ void debug() {
     Serial.print(value3);
     Serial.print("  ");
     Serial.print(value4);
-    Serial.println("\n=======\n");
+    Serial.print("\n===========\n");
 
     Serial.print(check1);
     Serial.print("  ");
     Serial.print(check2);
-    Serial.println("\n=======\n");
+    Serial.print("\n===========\n");
 
     Serial.print(Base_pos);
     Serial.print("  ");
     Serial.print(Tour_pos);
-    Serial.println("\n=======\n");
+    Serial.print("\n===========\n\n\n");
 }
 
 
@@ -99,10 +99,6 @@ void loop() {
     int value1 = abs(LDR1_val - LDR2_val);
     int value2 = abs(LDR2_val - LDR1_val);
 
-    //stock valeurs
-    lastval1 = value1;
-    lastval2 = value2;
-
 
     if ((value1 <= tol) || (value2 <= tol)) {
         check1 = true;
@@ -110,23 +106,23 @@ void loop() {
     else {
         check1 = false;
         // déplacement
-        if ((LDR1_val > LDR2_val) && (LDR1_val > lastval1)) {
+        if (LDR1_val > LDR2_val) {
             Base_pos = --Base_pos;
         }
 
-        if ((LDR2_val > LDR1_val) && (LDR2_val > lastval2)) {
+        if (LDR2_val > LDR1_val) {
             Base_pos = ++Base_pos;
         }
         
         // limites
-        if (Base_pos >= 140) {
-            Base_pos = 140;
+        if (Base_pos >= 90) {
+            Base_pos = 90;
         }
-        if (Base_pos <= 40) {
-            Base_pos = 40;
+        if (Base_pos <= 0) {
+            Base_pos = 0;
         }
     }
-
+  
     Base.write(Base_pos);
 
     /////////////////////////////////////////
@@ -139,22 +135,17 @@ void loop() {
     int value4 = abs(LDR4_val - LDR3_val);
 
 
-    //stock valeurs
-    lastval3 = value3;
-    lastval4 = value4;
-
-
     if ((value3 <= tol) || (value4 <= tol)) {
         check2 = true;
     }
     else {
         check2 = false;
-        if ((LDR3_val) > (LDR4_val) && (LDR3_val > lastval3)) {
-            Tour_pos = --Tour_pos;
+        if (LDR3_val > LDR4_val) {
+            Tour_pos = ++Tour_pos;
         }
 
-        if ((LDR4_val) > (LDR3_val) && (LDR4_val > lastval4)) {
-            Tour_pos = ++Tour_pos;
+        if (LDR4_val > LDR3_val) {
+            Tour_pos = --Tour_pos;
         }
 
         // limites
@@ -167,11 +158,13 @@ void loop() {
     }
 
     Tour.write(Tour_pos);
+
+    debug(value1, value2, value3, value4);
     
     if ((check1 == true) && (check2 == true)) {
         delay(6000);
     }
     else {
-        delay(500);
+        delay(150);
     }
 }
