@@ -6,7 +6,7 @@ Servo Base;
 Servo Tour;
 const byte Base_pin = 6;
 const byte Tour_pin = 9;
-int Base_pos = 90;
+int Base_pos = 0;
 int Tour_pos = 35;
 
 
