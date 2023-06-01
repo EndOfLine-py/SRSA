@@ -8,9 +8,9 @@
 
 // pins
 const byte LDR1_pin = 0;
-const byte LDR2_pin = 1;
-const byte LDR3_pin = 2;
-const byte LDR4_pin = 3;
+const byte LDR2_pin = 2;
+const byte LDR3_pin = 4;
+const byte LDR4_pin = 6;
 // valeurs
 int LDR1_val;
 int LDR2_val;
