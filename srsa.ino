@@ -11,9 +11,9 @@
 
 // pins
 const byte LDR1_pin = 0;
-const byte LDR2_pin = 1;
-const byte LDR3_pin = 2;
-const byte LDR4_pin = 3;
+const byte LDR2_pin = 2;
+const byte LDR3_pin = 4;
+const byte LDR4_pin = 6;
 // valeurs
 int LDR1_val;
 int LDR2_val;
@@ -24,10 +24,7 @@ int lastval1;
 int lastval2;
 int lastval3;
 int lastval4;
-//int LDR1_lastval;
-//int LDR2_lastval;
-//int LDR3_lastval;
-//int LDR4_lastval;
+
 
 // checks
 bool check1; // pour verif les conditions et tout mgl
@@ -43,7 +40,7 @@ const byte Tour_pin = 9;
 int Base_pos = 90;
 int Tour_pos = 35;
 
-byte Tol = 50; // Tolérance
+const int Tol = 10; // Tolérance
 
 
 // setup crazy
@@ -55,6 +52,39 @@ void setup() {
 
     Base.write(Base_pos);
     Tour.write(Tour_pos);
+
+    delay(1000);
+}
+
+
+void debug() {
+    Serial.print(LDR1_val);
+    Serial.print("  ");
+    Serial.print(LDR2_val);
+    Serial.print("  ");
+    Serial.print(LDR3_val);
+    Serial.print("  ");
+    Serial.print(LDR4_val);
+    Serial.println("\n=======\n");
+
+    Serial.print(value1);
+    Serial.print("  ");
+    Serial.print(value2);
+    Serial.print("  ");
+    Serial.print(value3);
+    Serial.print("  ");
+    Serial.print(value4);
+    Serial.println("\n=======\n");
+
+    Serial.print(check1);
+    Serial.print("  ");
+    Serial.print(check2);
+    Serial.println("\n=======\n");
+
+    Serial.print(Base_pos);
+    Serial.print("  ");
+    Serial.print(Tour_pos);
+    Serial.println("\n=======\n");
 }
 
 
@@ -142,6 +172,6 @@ void loop() {
         delay(6000);
     }
     else {
-        delay(100);
+        delay(500);
     }
 }
