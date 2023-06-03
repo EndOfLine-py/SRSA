@@ -35,7 +35,7 @@ const byte Tour_pin = 9;
 int Base_pos = 0; // 0° - 90°
 int Tour_pos = 25;
 
-const int tol = 20; // Tolérance
+const int tol = 25; // Tolérance
 
 
 // setup crazy
@@ -100,7 +100,7 @@ void loop() {
     int value2 = abs(LDR2_val - LDR1_val);
 
 
-    if ((value1 <= tol) || (value2 <= tol)) {
+    if ((value1 < tol) || (value2 < tol)) {
         check1 = true;
     }
     else {
@@ -135,7 +135,7 @@ void loop() {
     int value4 = abs(LDR4_val - LDR3_val);
 
 
-    if ((value3 <= tol) || (value4 <= tol)) {
+    if ((value3 < tol) || (value4 < tol)) {
         check2 = true;
     }
     else {
@@ -152,8 +152,8 @@ void loop() {
         if (Tour_pos >= 35) {
             Tour_pos = 35;
         }
-        if (Tour_pos <= 10) {
-            Tour_pos = 15;
+        if (Tour_pos <= 0) {
+            Tour_pos = 0;
         }
     }
 
