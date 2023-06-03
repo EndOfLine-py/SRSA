@@ -2,11 +2,11 @@
 #include <Servo.h>
 
 /*
-┌─────────────┐
+┌────────┐
 │ LDR1 │ LDR2 │
-│ ─────┼───── │
+│ ───┼─── │
 │ LDR3 │ LDR4 │
-└─────────────┘
+└────────┘
 */
 
 // pins
@@ -32,8 +32,8 @@ Servo Base;
 Servo Tour;
 const byte Base_pin = 6;
 const byte Tour_pin = 9;
-int Base_pos = 0; // 55 - 
-int Tour_pos = 35;
+int Base_pos = 0; // 0° - 90°
+int Tour_pos = 25;
 
 const int tol = 20; // Tolérance
 
@@ -149,11 +149,11 @@ void loop() {
         }
 
         // limites
-        if (Tour_pos >= 40) {
-            Tour_pos = 40;
+        if (Tour_pos >= 35) {
+            Tour_pos = 35;
         }
-        if (Tour_pos <= 30) {
-            Tour_pos = 30;
+        if (Tour_pos <= 10) {
+            Tour_pos = 15;
         }
     }
 
@@ -165,6 +165,6 @@ void loop() {
         delay(6000);
     }
     else {
-        delay(150);
+        delay(250);
     }
 }
